@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Abstract;
+using DataAccessLayer.Repositories;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,19 +11,33 @@ namespace BussinessLayer.Conrete
 {
     public class CategoryManager : ICategoryDal
     {
+        //CategoryRepositories categoryRepositories = new CategoryRepositories();
+        GenericRepository<Category> repo = new GenericRepository<Category>
         public void AddCategory(Category category)
         {
+            if(category.CategoryName!=""&& category.CategoryDescription!=""&&
+                category.CategoryName.Length>=5 && category.CategoryStatus == true)
+            {
+                repo.Delete(category);
+                //categoryRepositories.AddCategory(category);
+            }
+            else
+            {
+
+            }
+            
             
         }
 
         public void DeleteCategory(Category category)
         {
-            throw new NotImplementedException();
+            //categoryRepositories.DeleteCategory(category);
+
         }
 
         public Category GetById(int id)
         {
-            throw new NotImplementedException();
+            //return categoryRepositories.GetById(id);
         }
 
         public List<Category> ListAllCategory()
