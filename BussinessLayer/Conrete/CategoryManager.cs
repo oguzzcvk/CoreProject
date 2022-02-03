@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.Abstract;
+﻿using BussinessLayer.Abstarct;
+using DataAccessLayer.Abstract;
+using DataAccessLayer.EntityFramework;
 using DataAccessLayer.Repositories;
 using EntityLayer.Concrete;
 using System;
@@ -9,45 +11,38 @@ using System.Threading.Tasks;
 
 namespace BussinessLayer.Conrete
 {
-    public class CategoryManager : ICategoryDal
+    public class CategoryManager : ICategoryService
     {
-        //CategoryRepositories categoryRepositories = new CategoryRepositories();
-        GenericRepository<Category> repo = new GenericRepository<Category>
-        public void AddCategory(Category category)
-        {
-            if(category.CategoryName!=""&& category.CategoryDescription!=""&&
-                category.CategoryName.Length>=5 && category.CategoryStatus == true)
-            {
-                repo.Delete(category);
-                //categoryRepositories.AddCategory(category);
-            }
-            else
-            {
 
-            }
-            
-            
+        EfCategoryRepository efCategoryRepository;
+
+        public CategoryManager()
+        {
+            efCategoryRepository = new EfCategoryRepository();
+        }
+        public void CategoryAdd(Category category)
+        {
+            efCategoryRepository.Insert(category);
         }
 
-        public void DeleteCategory(Category category)
+        public void CategoryDelete(Category category)
         {
-            //categoryRepositories.DeleteCategory(category);
+            efCategoryRepository.Delete(category);
+        }
 
+        public void CategoryUpdate(Category category)
+        {
+            efCategoryRepository.Update(category);
         }
 
         public Category GetById(int id)
         {
-            //return categoryRepositories.GetById(id);
+            return efCategoryRepository.GetById(id);
         }
 
-        public List<Category> ListAllCategory()
+        public List<Category> GetList()
         {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateCategory(Category category)
-        {
-            throw new NotImplementedException();
+            return efCategoryRepository.GetListAll();
         }
     }
 }
