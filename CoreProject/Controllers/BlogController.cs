@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BussinessLayer.Conrete;
+using DataAccessLayer.EntityFramework;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +10,11 @@ namespace CoreProject.Controllers
 {
     public class BlogController : Controller
     {
+        BlogManager bm = new BlogManager(new EfBlogRepository());
         public IActionResult Index()
         {
-            return View();
+            var values = bm.GetList();
+;            return View(values);
         }
     }
 }
