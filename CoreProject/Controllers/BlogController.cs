@@ -14,7 +14,11 @@ namespace CoreProject.Controllers
         public IActionResult Index()
         {
             var values = bm.GetBlogListWithCategory();
-;            return View(values);
+            return View(values);
+        }
+        public IActionResult BlogDetails(int id)
+        {
+            return View();
         }
     }
 }
